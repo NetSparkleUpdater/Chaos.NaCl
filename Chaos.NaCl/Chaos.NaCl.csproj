@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProjectGuid>{AE28FD14-7985-4707-A963-C94B8597AE50}</ProjectGuid>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard1.2</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
