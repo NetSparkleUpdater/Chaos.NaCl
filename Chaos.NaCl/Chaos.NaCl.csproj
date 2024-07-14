@@ -1,17 +1,46 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProjectGuid>{AE28FD14-7985-4707-A963-C94B8597AE50}</ProjectGuid>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net8.0;net7.0;net6.0;netstandard2.0;net462</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <OutputPath>bin\$(Configuration)\</OutputPath>
 	<Version>0.9.0</Version>
+	<Authors>Deadpikle, CodesInChaos</Authors>
+	<Description>See https://github.com/NetSparkleUpdater/Chaos.NaCl for package description. Used for NetSparkleUpdater ed25519 functionality.</Description>
+	<Copyright>Copyright 2024</Copyright>
+	<PackageProjectUrl>https://github.com/NetSparkleUpdater/Chaos.NaCl/tree/main</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/NetSparkleUpdater/Chaos.NaCl/tree/main.git</RepositoryUrl>
+	<PackageTags>ed25519, chaos.nacl</PackageTags>
+	<RepositoryType>git</RepositoryType>
+	<Product>NetSparkleUpdater.Chaos.NaCl</Product>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<PackageId>NetSparkleUpdater.Chaos.NaCl</PackageId>
+	<PackageIconUrl />
+	<PackageLicenseFile>License.txt</PackageLicenseFile>
+	<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+	<RootNamespace>Chaos.NaCl</RootNamespace>
+	<PackageReadmeFile>readme.md</PackageReadmeFile>
+	<PackageReleaseNotes>See https://github.com/NetSparkleUpdater/Chaos.NaCl for information about this package.</PackageReleaseNotes>
+	<PackageReadmeFile>readme.md</PackageReadmeFile>
+	<IsTrimmable>true</IsTrimmable>
+	<TrimMode>partial</TrimMode>
+	<IsAotCompatible>true</IsAotCompatible>
+	<IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'netstandard2.0'))">false</IsAotCompatible>
+	<IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net462'))">false</IsAotCompatible>
+	<IsTrimmable Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net462'))">false</IsTrimmable>
+	<IsTrimmable Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'netstandard2.0'))">false</IsTrimmable>
   </PropertyGroup>
+<PropertyGroup>
+	<IncludeSymbols>true</IncludeSymbols>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+</PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <LangVersion>default</LangVersion>
   </PropertyGroup>
+	<ItemGroup>
+		<None Include="..\License.txt" Pack="true" PackagePath="\" />
+		<None Include="..\readme.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
 </Project>
