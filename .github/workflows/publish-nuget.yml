@@ -71,7 +71,7 @@ jobs:
         run: |
           dotnet clean ${{ github.workspace }}/Chaos.NaCl/Chaos.NaCl.csproj --configuration Release
           
-      - name: Build NetSparkle in Release
+      - name: Build Chaos.NaCl in Release
         run: dotnet build ${{ github.workspace }}/Chaos.NaCl/Chaos.NaCl.csproj --configuration Release
       
       - name: Publish Chaos.NaCl/Chaos.NaCl on version change
