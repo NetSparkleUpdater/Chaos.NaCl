@@ -22,6 +22,11 @@ namespace Chaos.NaCl
 
         public static bool Verify(byte[] signature, byte[] message, byte[] publicKey)
         {
+            return Verify(signature, message, message.Length, publicKey);
+        }
+
+        public static bool Verify(byte[] signature, byte[] message, int messageLength, byte[] publicKey)
+        {
             if (signature == null)
                 throw new ArgumentNullException("signature");
             if (message == null)
@@ -32,7 +37,7 @@ namespace Chaos.NaCl
                 throw new ArgumentException(string.Format("Signature size must be {0}", SignatureSizeInBytes), "signature.Length");
             if (publicKey.Length != PublicKeySizeInBytes)
                 throw new ArgumentException(string.Format("Public key size must be {0}", PublicKeySizeInBytes), "publicKey.Length");
-            return Ed25519Operations.crypto_sign_verify(signature, 0, message, 0, message.Length, publicKey, 0);
+            return Ed25519Operations.crypto_sign_verify(signature, 0, message, 0, messageLength, publicKey, 0);
         }
 
         public static void Sign(ArraySegment<byte> signature, ArraySegment<byte> message, ArraySegment<byte> expandedPrivateKey)
@@ -54,6 +59,13 @@ namespace Chaos.NaCl
         {
             var signature = new byte[SignatureSizeInBytes];
             Sign(new ArraySegment<byte>(signature), new ArraySegment<byte>(message), new ArraySegment<byte>(expandedPrivateKey));
+            return signature;
+        }
+
+        public static byte[] Sign(byte[] message, int messageLength, byte[] expandedPrivateKey)
+        {
+            var signature = new byte[SignatureSizeInBytes];
+            Sign(new ArraySegment<byte>(signature), new ArraySegment<byte>(message, 0, messageLength), new ArraySegment<byte>(expandedPrivateKey));
             return signature;
         }
 
@@ -108,7 +120,7 @@ namespace Chaos.NaCl
                 privateKeySeed.Array, privateKeySeed.Offset);
         }
 
-        [Obsolete("Needs more testing")]
+        [Obsolete("Still needs testing; use this function with caution")]
         public static byte[] KeyExchange(byte[] publicKey, byte[] privateKey)
         {
             var sharedKey = new byte[SharedKeySizeInBytes];
@@ -116,7 +128,7 @@ namespace Chaos.NaCl
             return sharedKey;
         }
 
-        [Obsolete("Needs more testing")]
+        [Obsolete("Still needs testing; use this function with caution")]
         public static void KeyExchange(ArraySegment<byte> sharedKey, ArraySegment<byte> publicKey, ArraySegment<byte> privateKey)
         {
             if (sharedKey.Array == null)
