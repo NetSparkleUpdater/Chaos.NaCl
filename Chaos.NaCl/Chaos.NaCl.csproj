@@ -4,7 +4,7 @@
     <TargetFrameworks>net8.0;net7.0;net6.0;netstandard2.0;net462</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <OutputPath>bin\$(Configuration)\</OutputPath>
-	<Version>0.9.0</Version>
+	<Version>0.9.1</Version>
 	<Authors>Deadpikle, CodesInChaos</Authors>
 	<Description>See https://github.com/NetSparkleUpdater/Chaos.NaCl for package description. Used for NetSparkleUpdater ed25519 functionality.</Description>
 	<Copyright>Copyright 2024</Copyright>
@@ -35,9 +35,11 @@
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<DocumentationFile>bin\Debug\Chaos.NaCl.xml</DocumentationFile>
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<DocumentationFile>bin\Release\Chaos.NaCl.xml</DocumentationFile>
   </PropertyGroup>
 	<ItemGroup>
 		<None Include="..\License.txt" Pack="true" PackagePath="\" />
