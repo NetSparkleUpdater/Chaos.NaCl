@@ -1,13 +1,19 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chaos.NaCl", "Chaos.NaCl\Chaos.NaCl.csproj", "{AE28FD14-7985-4707-A963-C94B8597AE50}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chaos.NaCl", "Chaos.NaCl\Chaos.NaCl.csproj", "{AE28FD14-7985-4707-A963-C94B8597AE50}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chaos.NaCl.Benchmark", "Chaos.NaCl.Benchmark\Chaos.NaCl.Benchmark.csproj", "{28321BA8-C416-4F81-BE4C-1546CD62118B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chaos.NaCl.Tests", "Chaos.NaCl.Tests\Chaos.NaCl.Tests.csproj", "{433DF668-E178-4F13-A500-4D3609F450B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chaos.NaCl.Tests", "Chaos.NaCl.Tests\Chaos.NaCl.Tests.csproj", "{433DF668-E178-4F13-A500-4D3609F450B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chaos.NaCl.Benchmark32", "Chaos.NaCl.Benchmark32\Chaos.NaCl.Benchmark32.csproj", "{414429EE-D02E-485B-BE58-52DF33CF56AA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2AFB960F-62BD-4C10-91A8-41A68D95EBAA}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\publish-nuget.yml = .github\workflows\publish-nuget.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,5 +40,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {17FCAE02-C5A5-4889-8C0E-B7F472FA531C}
 	EndGlobalSection
 EndGlobal
