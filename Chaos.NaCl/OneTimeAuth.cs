@@ -2,6 +2,7 @@
 
 namespace Chaos.NaCl
 {
+    [Obsolete("Used Poly1305 class still needs testing; use this class with caution")]
     public abstract class OneTimeAuth
     {
         private static readonly Poly1305 _poly1305 = new Poly1305();
