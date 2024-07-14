@@ -25,7 +25,7 @@ namespace Chaos.NaCl.Tests
         [TestMethod]
         public void Sha512_1()
         {
-            var sha512Framework = new SHA512Managed();
+            var sha512Framework = SHA512.Create();
             for (int n = 0; n < 1000; n++)
             {
                 var message = Enumerable.Range(1, n).Select(i => (byte)i).ToArray();
@@ -38,7 +38,7 @@ namespace Chaos.NaCl.Tests
         [TestMethod]
         public void Sha512_2()
         {
-            var sha512Framework = new SHA512Managed();
+            var sha512Framework = SHA512.Create();
             for (int n = 0; n < 1000; n++)
             {
                 var message = Enumerable.Range(1, n).Select(i => (byte)i).ToArray();
@@ -55,7 +55,7 @@ namespace Chaos.NaCl.Tests
             // use only a subset of possible indices to speed up the test
             var indices = Enumerable.Range(0, 300).Where(i => (i % 64) < 5 || (i % 64) > 64 - 5).ToArray();
 
-            var sha512Framework = new SHA512Managed();
+            var sha512Framework = SHA512.Create();
             foreach (var k in indices)
                 foreach (var m in indices)
                     foreach (var n in indices)
@@ -75,7 +75,7 @@ namespace Chaos.NaCl.Tests
         public void Sha512_Reuse()
         {
             var message = Enumerable.Range(1, 100).Select(i => (byte)i).ToArray();
-            var sha512Framework = new SHA512Managed();
+            var sha512Framework = SHA512.Create();
             var hashExpected = sha512Framework.ComputeHash(message);
 
             var hasher = new Sha512();
