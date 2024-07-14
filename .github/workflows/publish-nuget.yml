@@ -1,0 +1,87 @@
+name: Test and Publish to NuGet
+on: 
+  push:
+    branches:
+      - "*"
+  pull_request:
+# to update branch that publish happens on, edit the if: statement for the publish job
+jobs:
+  test:
+    name: Unit testing
+    runs-on: ${{ matrix.os }}
+    strategy:
+        matrix:
+            os: [windows-latest, macos-latest, ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - uses: nuget/setup-nuget@v2
+        with:
+            nuget-api-key: ${{secrets.NUGET_API_KEY}}
+            nuget-version: '5.x'
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v2.0.0
+        if: matrix.os == 'windows-latest'
+      
+      - name: Setup .NET 6.0, 7.0, 8.0 for tests
+        uses: actions/setup-dotnet@v4.0.1
+        with:
+          dotnet-version: |
+            6.0.x
+            7.0.x
+            8.0.x
+
+      - name: Run Chaos.NaCl.Tests in .NET 4.6.2
+        run: dotnet test -f net462 ${{ github.workspace }}/Chaos.NaCl.Tests/Chaos.NaCl.Tests.csproj
+        if: matrix.os == 'windows-latest'
+
+      - name: Run Chaos.NaCl.Tests in .NET 6
+        run: dotnet test -f net6.0 ${{ github.workspace }}/Chaos.NaCl.Tests/Chaos.NaCl.Tests.csproj
+
+      - name: Run Chaos.NaCl.Tests in .NET 7
+        run: dotnet test -f net7.0 ${{ github.workspace }}/Chaos.NaCl.Tests/Chaos.NaCl.Tests.csproj
+
+      - name: Run Chaos.NaCl.Tests in .NET 8
+        run: dotnet test -f net8.0 ${{ github.workspace }}/Chaos.NaCl.Tests/Chaos.NaCl.Tests.csproj
+
+  publish:
+    name: Build and publish all packages to NuGet
+    runs-on: windows-latest
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - uses: nuget/setup-nuget@v2
+        with:
+            nuget-api-key: ${{secrets.NUGET_API_KEY}}
+            nuget-version: '5.x'
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v2.0.0
+      
+      - name: Setup .NET 6.0, 7.0, 8.0
+        uses: actions/setup-dotnet@v4.0.1
+        with:
+          dotnet-version: |
+            6.0.x
+            7.0.x
+            8.0.x
+
+      - name: Clean things to be safe
+        run: |
+          dotnet clean ${{ github.workspace }}/Chaos.NaCl/Chaos.NaCl.csproj --configuration Release
+          
+      - name: Build NetSparkle in Release
+        run: dotnet build ${{ github.workspace }}/Chaos.NaCl/Chaos.NaCl.csproj --configuration Release
+      
+      - name: Publish Chaos.NaCl/Chaos.NaCl on version change
+        uses: nitz/publish-nuget@60fd3adf9d9eecc3bbf8a98738734d3061347172
+        with:
+          PROJECT_FILE_PATH: ${{ github.workspace }}/Chaos.NaCl/Chaos.NaCl.csproj # Relative to repository root
+          # VERSION_FILE_PATH: Directory.Build.props # Filepath with version info, relative to repository root. Defaults to project file
+          # VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
+          TAG_COMMIT: false # Flag to enable / disalge git tagging
+          # TAG_FORMAT: v* # Format of the git tag, [*] gets replaced with version
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}} # nuget.org API key
+          PACKAGE_NAME: NetSparkleUpdater.Chaos.NaCl
+          INCLUDE_SYMBOLS: true
