@@ -1,13 +1,14 @@
 using System;
-using System.Dynamic;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Chaos.NaCl
 {
     /// <summary>
     /// Uses public key and EXPANDED private key (64 bytes) to
     /// create signatures and verify signatures for data.
+    /// Data is added to a MemoryStream, then used in conjunction with
+    /// a private and/or public key in order to create or verify ed25519 
+    /// signatures.
     /// API modified from BouncyCastle on 2024-07-13 (MIT).
     /// </summary>
     public class Ed25519Signer : IDisposable
