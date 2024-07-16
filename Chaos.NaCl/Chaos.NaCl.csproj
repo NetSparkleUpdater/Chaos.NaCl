@@ -6,7 +6,7 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
 	<Version>0.9.1</Version>
 	<Authors>Deadpikle, CodesInChaos</Authors>
-	<Description>See https://github.com/NetSparkleUpdater/Chaos.NaCl for package description. Used for NetSparkleUpdater ed25519 functionality.</Description>
+	<Description>See https://github.com/NetSparkleUpdater/Chaos.NaCl and README for package information. This NuGet package was originally created for NetSparkleUpdater's ed25519 functionality.</Description>
 	<Copyright>Copyright 2024</Copyright>
 	<PackageProjectUrl>https://github.com/NetSparkleUpdater/Chaos.NaCl/tree/main</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/NetSparkleUpdater/Chaos.NaCl/tree/main.git</RepositoryUrl>
@@ -20,7 +20,7 @@
 	<RootNamespace>Chaos.NaCl</RootNamespace>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-	<PackageReleaseNotes>See https://github.com/NetSparkleUpdater/Chaos.NaCl for information about this package.</PackageReleaseNotes>
+	<PackageReleaseNotes>See https://github.com/NetSparkleUpdater/Chaos.NaCl and README for information about this package.</PackageReleaseNotes>
 	<IsTrimmable>true</IsTrimmable>
 	<TrimMode>partial</TrimMode>
 	<IsAotCompatible>true</IsAotCompatible>

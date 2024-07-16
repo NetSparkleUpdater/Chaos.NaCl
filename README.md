@@ -1,7 +1,14 @@
-Chaos.NaCl
-==========
+# Chaos.NaCl
 
-Chaos.NaCl is a cryptography library written in C#. It is based on djb's NaCl.
+[![NuGet](https://img.shields.io/nuget/v/NetSparkleUpdater.Chaos.NaCl.svg?style=flat-square)](https://www.nuget.org/packages/NetSparkleUpdater.Chaos.NaCl/) [![NuGet](https://img.shields.io/nuget/dt/NetSparkleUpdater.Chaos.NaCl.svg?style=flat-square)](https://www.nuget.org/packages/NetSparkleUpdater.Chaos.NaCl/)
+
+Chaos.NaCl is a cryptography library written in C#. It is based on djb's NaCl. This repository is a fork of the [original C# port by CodesInChaos](https://github.com/CodesInChaos/Chaos.NaCl) and is used for [NetSparkleUpdater's](https://github.com/NetSparkleUpdater) ed25519 signature generation and signature checking. It includes one new class, `Ed25519Signer`, which eases the use of the `Ed25519` API a little bit and is very similar to the class of the same name from [BouncyCastle](https://github.com/bcgit/bc-csharp).
+
+We are happy to accept community contributions and publish these updates on the [NuGet package for this repository](https://www.nuget.org/packages/NetSparkleUpdater.Chaos.NaCl/); however, at this time, no further development is planned for this fork outside of what is required for NetSparkleUpdater, so unless there are community contributions or changes needed for NetSparkleUpdater, this repository will likely stay as it is.
+
+What follows is the rest of the original README for this project.
+
+------
 
 Currently it supports:
 
@@ -20,7 +27,7 @@ Most functions come in two variants:
 **WARNINGS:**
 
 * The current API is not final. I'll probably modify it.
-* Some functions are marked with the `[Obsolete("Needs more testing")]` attribute.
+* Some functions are marked with the `Obsolete` attribute.
   Those should work in principle, but I'm not happy with the unit test coverage.
 
 `Ed25519` (Key-exchange and signatures)
