@@ -16,12 +16,11 @@
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<PackageId>NetSparkleUpdater.Chaos.NaCl</PackageId>
 	<PackageIconUrl />
-	<PackageLicenseFile>License.txt</PackageLicenseFile>
 	<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
 	<RootNamespace>Chaos.NaCl</RootNamespace>
-	<PackageReadmeFile>readme.md</PackageReadmeFile>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
 	<PackageReleaseNotes>See https://github.com/NetSparkleUpdater/Chaos.NaCl for information about this package.</PackageReleaseNotes>
-	<PackageReadmeFile>readme.md</PackageReadmeFile>
 	<IsTrimmable>true</IsTrimmable>
 	<TrimMode>partial</TrimMode>
 	<IsAotCompatible>true</IsAotCompatible>
@@ -42,7 +41,7 @@
 	<DocumentationFile>bin\Release\Chaos.NaCl.xml</DocumentationFile>
   </PropertyGroup>
 	<ItemGroup>
-		<None Include="..\License.txt" Pack="true" PackagePath="\" />
-		<None Include="..\readme.md" Pack="true" PackagePath="\" />
+		<None Include="..\LICENSE.md" Pack="true" PackagePath="\" />
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 </Project>
