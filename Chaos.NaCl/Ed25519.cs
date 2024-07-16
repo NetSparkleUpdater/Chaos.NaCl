@@ -38,7 +38,13 @@ namespace Chaos.NaCl
         /// <returns>An array of 32 bytes for the user's private key.</returns>
         public static string GeneratePrivateKeySeed()
         {
-            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+#if NETSTANDARD || NET462
+            byte[] random = new byte[PrivateKeySeedSizeInBytes];
+            RandomNumberGenerator.GetBytes(random);
+            return Convert.ToBase64String(random);
+#else
+            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(PrivateKeySeedSizeInBytes));
+#endif
         }
 
         /// <summary>
