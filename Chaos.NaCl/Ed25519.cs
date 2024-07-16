@@ -40,7 +40,7 @@ namespace Chaos.NaCl
         {
 #if NETSTANDARD || NET462
             byte[] random = new byte[PrivateKeySeedSizeInBytes];
-            RandomNumberGenerator.GetBytes(random);
+            RandomNumberGenerator.Create().GetBytes(random);
             return Convert.ToBase64String(random);
 #else
             return Convert.ToBase64String(RandomNumberGenerator.GetBytes(PrivateKeySeedSizeInBytes));
