@@ -23,13 +23,14 @@ jobs:
         uses: microsoft/setup-msbuild@v2.0.0
         if: matrix.os == 'windows-latest'
       
-      - name: Setup .NET 6.0, 7.0, 8.0 for tests
+      - name: Setup .NET 6.0, 7.0, 8.0, 9.0 for tests
         uses: actions/setup-dotnet@v4.0.1
         with:
           dotnet-version: |
             6.0.x
             7.0.x
             8.0.x
+            9.0.x
 
       - name: Run Chaos.NaCl.Tests in .NET 4.6.2
         run: dotnet test -f net462 ${{ github.workspace }}/Chaos.NaCl.Tests/Chaos.NaCl.Tests.csproj
@@ -43,6 +44,9 @@ jobs:
 
       - name: Run Chaos.NaCl.Tests in .NET 8
         run: dotnet test -f net8.0 ${{ github.workspace }}/Chaos.NaCl.Tests/Chaos.NaCl.Tests.csproj
+
+      - name: Run Chaos.NaCl.Tests in .NET 9
+        run: dotnet test -f net9.0 ${{ github.workspace }}/Chaos.NaCl.Tests/Chaos.NaCl.Tests.csproj
 
   publish:
     name: Build and publish all packages to NuGet
@@ -59,13 +63,14 @@ jobs:
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v2.0.0
       
-      - name: Setup .NET 6.0, 7.0, 8.0
+      - name: Setup .NET 6.0, 7.0, 8.0, 9.0
         uses: actions/setup-dotnet@v4.0.1
         with:
           dotnet-version: |
             6.0.x
             7.0.x
             8.0.x
+            9.0.x
 
       - name: Clean things to be safe
         run: |
