@@ -4,7 +4,7 @@
     <TargetFrameworks>net9.0;net8.0;net7.0;net6.0;netstandard2.0;net462</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <OutputPath>bin\$(Configuration)\</OutputPath>
-	<Version>0.9.2</Version>
+	<Version>0.9.3</Version>
 	<Authors>Deadpikle, CodesInChaos</Authors>
 	<Description>See https://github.com/NetSparkleUpdater/Chaos.NaCl and README for package information. This NuGet package was originally created for NetSparkleUpdater's ed25519 functionality.</Description>
 	<Copyright>Copyright 2024</Copyright>
@@ -19,7 +19,7 @@
 	<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
 	<RootNamespace>Chaos.NaCl</RootNamespace>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
-	<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<PackageReleaseNotes>See https://github.com/NetSparkleUpdater/Chaos.NaCl and README for information about this package.</PackageReleaseNotes>
 	<IsTrimmable>true</IsTrimmable>
 	<TrimMode>partial</TrimMode>
