@@ -13,7 +13,10 @@ jobs:
         matrix:
             os: [windows-latest, macos-latest, ubuntu-latest]
     steps:
-      - run: sudo apt install mono-devel
+      - run: |
+         if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt install mono-devel
+         fi
       - uses: actions/checkout@v4.1.7
       - uses: nuget/setup-nuget@v2
         with:
@@ -59,7 +62,10 @@ jobs:
     needs: test
     if: github.ref == 'refs/heads/main'
     steps:
-      - run: sudo apt install mono-devel
+      - run: |
+         if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt install mono-devel
+         fi
       - uses: actions/checkout@v4.1.7
       - uses: nuget/setup-nuget@v2
         with:
