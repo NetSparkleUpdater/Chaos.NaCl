@@ -21,7 +21,7 @@ jobs:
             echo ''
          else
             nuget help || brew install nuget -q
-            softwareupdate --install-rosetta
+            softwareupdate --install-rosetta --agree-to-license
          fi
         shell: bash
       - uses: actions/checkout@v4.1.7
