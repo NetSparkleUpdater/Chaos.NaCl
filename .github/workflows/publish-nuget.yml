@@ -17,6 +17,7 @@ jobs:
          if [ "$RUNNER_OS" == "Linux" ]; then
             sudo apt install mono-devel
          elif [ "$RUNNER_OS" == "Windows" ]; then
+            echo 'hi'
          else
             nuget help || brew install nuget -q
          fi
