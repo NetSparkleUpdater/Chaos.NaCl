@@ -21,6 +21,7 @@ jobs:
             echo ''
          else
             nuget help || brew install nuget -q
+            softwareupdate --install-rosetta
          fi
         shell: bash
       - uses: actions/checkout@v4.1.7
@@ -33,7 +34,7 @@ jobs:
         uses: microsoft/setup-msbuild@v2.0.0
         if: matrix.os == 'windows-latest'
       
-      - name: Setup .NET 6.0, 7.0, 8.0, 9.0, 1.0 for tests
+      - name: Setup .NET 6.0, 7.0, 8.0, 9.0, 10.0 for tests
         uses: actions/setup-dotnet@v4.0.1
         with:
           dotnet-version: |
