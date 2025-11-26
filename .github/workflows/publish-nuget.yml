@@ -13,7 +13,7 @@ jobs:
         matrix:
             os: [windows-latest, macos-latest, ubuntu-latest]
     steps:
-      - name: Install Mono / NuGet
+      - name: Install Mono / NuGet / .NET
         run: |
          if [ "$RUNNER_OS" == "Linux" ]; then
             sudo apt install mono-devel
@@ -81,16 +81,6 @@ jobs:
     needs: test
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Install Mono / NuGet
-        run: |
-         if [ "$RUNNER_OS" == "Linux" ]; then
-            sudo apt install mono-devel
-         elif [ "$RUNNER_OS" == "Windows" ]; then
-            echo ''
-         else
-            nuget help || brew install nuget -q
-         fi
-        shell: bash
       - uses: actions/checkout@v4.1.7
       - uses: nuget/setup-nuget@v2
         with:
