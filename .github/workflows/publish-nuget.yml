@@ -16,6 +16,9 @@ jobs:
       - run: |
          if [ "$RUNNER_OS" == "Linux" ]; then
             sudo apt install mono-devel
+         elif [ "$RUNNER_OS" == "Windows" ]; then
+         else
+            nuget help || brew install nuget -q
          fi
       - uses: actions/checkout@v4.1.7
       - uses: nuget/setup-nuget@v2
@@ -65,6 +68,9 @@ jobs:
       - run: |
          if [ "$RUNNER_OS" == "Linux" ]; then
             sudo apt install mono-devel
+         elif [ "$RUNNER_OS" == "Windows" ]; then
+         else
+            nuget help || brew install nuget -q
          fi
       - uses: actions/checkout@v4.1.7
       - uses: nuget/setup-nuget@v2
