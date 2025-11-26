@@ -68,13 +68,16 @@ jobs:
     needs: test
     if: github.ref == 'refs/heads/main'
     steps:
-      - run: |
+      - name: Install Mono / NuGet
+        run: |
          if [ "$RUNNER_OS" == "Linux" ]; then
             sudo apt install mono-devel
          elif [ "$RUNNER_OS" == "Windows" ]; then
+            echo ''
          else
             nuget help || brew install nuget -q
          fi
+        shell: bash
       - uses: actions/checkout@v4.1.7
       - uses: nuget/setup-nuget@v2
         with:
