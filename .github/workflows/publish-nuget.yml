@@ -22,6 +22,18 @@ jobs:
          else
             nuget help || brew install nuget -q
             softwareupdate --install-rosetta --agree-to-license
+            wget https://dot.net/v1/dotnet-install.sh
+            chmod +x dotnet-install.sh
+            ./dotnet-install.sh --architecture arm64 --channel 6.0
+            ./dotnet-install.sh --architecture x64 --channel 6.0
+            ./dotnet-install.sh --architecture arm64 --channel 7.0
+            ./dotnet-install.sh --architecture x64 --channel 7.0
+            ./dotnet-install.sh --architecture arm64 --channel 8.0
+            ./dotnet-install.sh --architecture x64 --channel 8.0
+            ./dotnet-install.sh --architecture arm64 --channel 9.0
+            ./dotnet-install.sh --architecture x64 --channel 9.0
+            ./dotnet-install.sh --architecture arm64 --channel 10.0
+            ./dotnet-install.sh --architecture x64 --channel 10.0
          fi
         shell: bash
       - uses: actions/checkout@v4.1.7
