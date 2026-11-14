@@ -7,12 +7,20 @@ on:
 # to update branch that publish happens on, edit the if: statement for the publish job
 jobs:
   test:
+    permissions:
+      id-token: write  # enable GitHub OIDC token issuance for this job
     name: Unit testing
     runs-on: ${{ matrix.os }}
     strategy:
         matrix:
             os: [windows-latest, macos-latest, ubuntu-latest]
     steps:
+      # Get a short-lived NuGet API key, see https://learn.microsoft.com/en-us/nuget/nuget-org/trusted-publishing
+      - name: NuGet login (OIDC → temp API key)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{secrets.NUGET_USERNAME}}
       - name: Install Mono / NuGet / .NET
         run: |
          if [ "$RUNNER_OS" == "Linux" ]; then
@@ -34,19 +42,21 @@ jobs:
             ./dotnet-install.sh --architecture x64 --channel 9.0
             ./dotnet-install.sh --architecture arm64 --channel 10.0
             ./dotnet-install.sh --architecture x64 --channel 10.0
+            ./dotnet-install.sh --architecture arm64 --channel 11.0
+            ./dotnet-install.sh --architecture x64 --channel 11.0
          fi
         shell: bash
       - uses: actions/checkout@v4.1.7
       - uses: nuget/setup-nuget@v2
         with:
-            nuget-api-key: ${{secrets.NUGET_API_KEY}}
+            nuget-api-key: ${{steps.login.outputs.NUGET_API_KEY}}
             nuget-version: '5.x'
 
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v2.0.0
         if: matrix.os == 'windows-latest'
       
-      - name: Setup .NET 6.0, 7.0, 8.0, 9.0, 10.0 for tests
+      - name: Setup .NET 6.0, 7.0, 8.0, 9.0, 10.0, 11.0 for tests
         uses: actions/setup-dotnet@v4.0.1
         with:
           dotnet-version: |
@@ -55,6 +65,7 @@ jobs:
             8.0.x
             9.0.x
             10.0.x
+            11.0.x
 
       - name: Run Chaos.NaCl.Tests in .NET 4.6.2
         run: dotnet test -f net462 ${{ github.workspace }}/Chaos.NaCl.Tests/Chaos.NaCl.Tests.csproj
@@ -75,22 +86,31 @@ jobs:
       - name: Run Chaos.NaCl.Tests in .NET 10
         run: dotnet test -f net10.0 ${{ github.workspace }}/Chaos.NaCl.Tests/Chaos.NaCl.Tests.csproj
 
+      - name: Run Chaos.NaCl.Tests in .NET 11
+        run: dotnet test -f net11.0 ${{ github.workspace }}/Chaos.NaCl.Tests/Chaos.NaCl.Tests.csproj
+
   publish:
     name: Build and publish all packages to NuGet
     runs-on: windows-latest
     needs: test
     if: github.ref == 'refs/heads/main'
     steps:
+      # Get a short-lived NuGet API key, see https://learn.microsoft.com/en-us/nuget/nuget-org/trusted-publishing
+      - name: NuGet login (OIDC → temp API key)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{secrets.NUGET_USERNAME}}
       - uses: actions/checkout@v4.1.7
       - uses: nuget/setup-nuget@v2
         with:
-            nuget-api-key: ${{secrets.NUGET_API_KEY}}
+            nuget-api-key: ${{steps.login.outputs.NUGET_API_KEY}}
             nuget-version: '5.x'
 
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v2.0.0
       
-      - name: Setup .NET 6.0, 7.0, 8.0, 9.0, 10.0
+      - name: Setup .NET 6.0, 7.0, 8.0, 9.0, 10.0, 11.0
         uses: actions/setup-dotnet@v4.0.1
         with:
           dotnet-version: |
@@ -99,6 +119,7 @@ jobs:
             8.0.x
             9.0.x
             10.0.x
+            11.0.x
 
       - name: Clean things to be safe
         run: |
@@ -115,6 +136,6 @@ jobs:
           # VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
           TAG_COMMIT: false # Flag to enable / disalge git tagging
           # TAG_FORMAT: v* # Format of the git tag, [*] gets replaced with version
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}} # nuget.org API key
+          NUGET_KEY: ${{steps.login.outputs.NUGET_API_KEY}} # nuget.org API key
           PACKAGE_NAME: NetSparkleUpdater.Chaos.NaCl
           INCLUDE_SYMBOLS: true
