@@ -90,6 +90,9 @@ jobs:
         run: dotnet test -f net11.0 ${{ github.workspace }}/Chaos.NaCl.Tests/Chaos.NaCl.Tests.csproj
 
   publish:
+    permissions:
+      id-token: write  # enable GitHub OIDC token issuance for this job
+      contents: read
     name: Build and publish all packages to NuGet
     runs-on: windows-latest
     needs: test
